@@ -1,9 +1,16 @@
+
+  let titleString = "do you want to meet a ghost";
+  let state = "title";
+
 function setup() {
   createCanvas(600, 400);
   //removing cursor/
   noCursor();
+  
+  
  
 }
+
 //defining how spooky is that screen/
  let screen={
    x:40,
@@ -54,6 +61,14 @@ function draw() {
   fill(screen.fill);
   rect(screen.x, screen.y, screen.w, screen.h)
   pop();
+  
+  textAlign(CENTER, CENTER);
+  textSize(15);
+  fill('white')
+  textFont('Courier New');
+  
+  // Display a ghastly message.
+  text('Do you want to meet a ghost?_', 400, 310);
   
   //the mouse/
   push();
