@@ -1,4 +1,4 @@
-
+//let me add my hopes and dreams/
 function setup() {
   createCanvas(600, 400);
   //removing cursor/
