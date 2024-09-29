@@ -1,13 +1,10 @@
 
-  let titleString = "do you want to meet a ghost";
-  let state = "title";
-
 function setup() {
   createCanvas(600, 400);
   //removing cursor/
   noCursor();
   
-  
+  let state = "title";
  
 }
 
@@ -17,11 +14,28 @@ function setup() {
    y:20,
    w:500,
    h:300,
-   fill: 'rgb(49,44,44)'  
+   r:49,
+   g:44,
+   b:44,
  }
  
+ let webcam={
+   x:285,
+   y:16,
+   d:9,
+   fill:30,
+ }
  
-
+ //spooky things happening when mouse is pressed/
+function mousePressed() {
+  //screen widens/
+  screen.w +=10;
+  screen.x -=2.5;
+  screen.h +=10;
+  screen.y-=2.5;
+  //screen gets bluer/
+  screen.b +=5
+}
  
 function draw() {
   //drawing the background/
@@ -29,17 +43,18 @@ function draw() {
   //removing strokes because I hate them/
   noStroke();
   
+  
 //third time's the charm/
   //defining the mouse/
   //in such way that it doesn't pierce through the screen/
-  let x1= constrain (mouseX, screen.x, 515);
-  let y1= constrain (mouseY, screen.y, 290);
+  let x1= constrain (mouseX, screen.x, screen.x+screen.w-25);
+  let y1= constrain (mouseY, screen.y, screen.y+screen.h-30);
   
-  let x2= constrain (mouseX, screen.x, 515);
-  let y2= constrain (mouseY+30, screen.y+30, 320 );
+  let x2= constrain (mouseX, screen.x, screen.x+screen.w-25);
+  let y2= constrain (mouseY+30, screen.y+30, screen.y+screen.h );
   
   let x3= constrain (mouseX+25, screen.x+25, screen.w+40);
-  let y3= constrain (mouseY+20, screen.y+20, 310 );
+  let y3= constrain (mouseY+20, screen.y+20, screen.y+screen.h-10 );
   
   
   //a table/
@@ -56,12 +71,19 @@ function draw() {
   triangle(550,325,600,400, 550, 400)
   pop();
   
+   
+
   //the computer screen/
   push();
-  fill(screen.fill);
+  fill(screen.r,screen.g, screen.b);
   rect(screen.x, screen.y, screen.w, screen.h)
   pop();
-  
+  //the webcam/
+  push();
+  fill(webcam.fill);
+  circle(webcam.x, webcam.y, webcam.d)
+  pop();
+  //formats the ghastly message/
   textAlign(CENTER, CENTER);
   textSize(15);
   fill('white')
@@ -75,4 +97,22 @@ function draw() {
   fill('rgb(231,231,249)');
   triangle(x1,y1, x2,y2,x3,y3);
   pop(); 
+}
+//when mouse moved, webcam blinks on/
+//someone is watching//
+function mouseMoved() {
+  webcam.fill += 5;
+  if (webcam.fill>200) {
+    webcam.fill-=70;
+  }
+  //NOT WORKING//
+  //When mouse doesn't move/
+  //the webcam led turns off/
+  //or at least it's supposed to/
+if (mouseMoved === true){
+  
+  webcam.fill -= 10;
+}
+
+    
 }
