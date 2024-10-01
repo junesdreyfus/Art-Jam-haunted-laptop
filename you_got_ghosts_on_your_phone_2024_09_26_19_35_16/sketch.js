@@ -1,11 +1,10 @@
-//let me add my hopes and dreams/
+
 function setup() {
   createCanvas(600, 400);
   //removing cursor/
   noCursor();
   
   let state = "title";
- 
 }
 
 //defining how spooky is that screen/
@@ -26,6 +25,7 @@ function setup() {
    fill:30,
  }
  
+ 
  //spooky things happening when mouse is pressed/
 function mousePressed() {
   //screen widens/
@@ -34,7 +34,24 @@ function mousePressed() {
   screen.h +=10;
   screen.y-=2.5;
   //screen gets bluer/
-  screen.b +=5
+  screen.b+=5
+}
+
+//when mouse moved, webcam blinks on/
+//someone is watching//
+function mouseMoved() {
+  webcam.fill += 5;
+  if (webcam.fill>200) {
+    webcam.fill-=70;
+  }
+  //NOT WORKING//
+  //When mouse doesn't move/
+  //the webcam led turns off/
+  //or at least it's supposed to/
+if (mouseMoved === false){
+  
+  webcam.fill-= 10;
+} 
 }
  
 function draw() {
@@ -67,8 +84,7 @@ function draw() {
   push();
   fill('black'),
   rect(30, 10, 520),
-  triangle(30,325,0,400, 30, 400)
-  triangle(550,325,600,400, 550, 400)
+  quad(30,325,0,400, 600, 400, 550, 325)
   pop();
   
    
@@ -83,36 +99,20 @@ function draw() {
   fill(webcam.fill);
   circle(webcam.x, webcam.y, webcam.d)
   pop();
+  
   //formats the ghastly message/
   textAlign(CENTER, CENTER);
   textSize(15);
   fill('white')
   textFont('Courier New');
   
-  // Display a ghastly message.
-  text('Do you want to meet a ghost?_', 400, 310);
+  // Display a ghastly message./
+  // keeping it in the corner of the screen when enlarged/
+  text('Do you want to meet a ghost?_', screen.w+screen.x-140, screen.h+screen.y-10);
   
   //the mouse/
   push();
   fill('rgb(231,231,249)');
   triangle(x1,y1, x2,y2,x3,y3);
   pop(); 
-}
-//when mouse moved, webcam blinks on/
-//someone is watching//
-function mouseMoved() {
-  webcam.fill += 5;
-  if (webcam.fill>200) {
-    webcam.fill-=70;
-  }
-  //NOT WORKING//
-  //When mouse doesn't move/
-  //the webcam led turns off/
-  //or at least it's supposed to/
-if (mouseMoved === true){
-  
-  webcam.fill -= 10;
-}
-
-    
 }
