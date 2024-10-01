@@ -4,8 +4,10 @@ function setup() {
   //removing cursor/
   noCursor();
   
+  
   let state = "title";
 }
+
 
 //defining how spooky is that screen/
  let screen={
@@ -18,6 +20,14 @@ function setup() {
    b:44,
  }
  
+ let creepyroom={
+   r:49,
+   g:44,
+   b:44,
+}
+ 
+ 
+ 
  let webcam={
    x:285,
    y:16,
@@ -26,40 +36,62 @@ function setup() {
  }
  
  
+ 
  //spooky things happening when mouse is pressed/
 function mousePressed() {
   //screen widens/
-  screen.w +=10;
+  screen.w +=5;
   screen.x -=2.5;
-  screen.h +=10;
-  screen.y-=2.5;
+  screen.h +=5;
+  screen.y-=1.5;
   //screen gets bluer/
-  screen.b+=5
+  screen.b+=0.3
+  creepyroom.g+=0.3
+  creepyroom.b+=0.1
 }
 
 //when mouse moved, webcam blinks on/
 //someone is watching//
+
+
+
 function mouseMoved() {
   webcam.fill += 5;
   if (webcam.fill>200) {
     webcam.fill-=70;
   }
-  //NOT WORKING//
+}
   //When mouse doesn't move/
   //the webcam led turns off/
   //or at least it's supposed to/
-if (mouseMoved === false){
   
-  webcam.fill-= 10;
-} 
-}
+  //first version (not working//
+  //if (mouseMoved === false){
+  
+  //webcam.fill-= 10;
+  //} 
+//second version (not working)
+//function checkMouse(){
+  //if(mouseMoved){
+//     webcam.fill +=5;
+//   }
+//   else{
+//     webcam.fill -5
+//   }
+// }
+
+// }
+
  
+
 function draw() {
+  
   //drawing the background/
   background('#2C3330');
   //removing strokes because I hate them/
   noStroke();
   
+
   
 //third time's the charm/
   //defining the mouse/
@@ -100,10 +132,25 @@ function draw() {
   circle(webcam.x, webcam.y, webcam.d)
   pop();
   
+  
+  //mapping mouseX to a small variable/
+  //as mouse moves right the room shimmers slightly//
+  //wheeere am i going with this
+let g= map(mouseX, screen.x, screen.x+screen.w, 1, 5);
+  
+  //drawing creepy room/
+  push();
+  fill(creepyroom.r+g, creepyroom.g+g, creepyroom.b);
+  //cursed cursed cursed equations/
+  quad (screen.x, screen.y, screen.w/3, screen.h/3, screen.w/3, screen.h/1.5, screen.x, screen.y+screen.h)
+  quad (screen.x+screen.w, screen.y, 2*screen.w/3, screen.h/3, 2*screen.w/3, screen.h/1.5, screen.x+screen.w, screen.y+screen.h)
+  pop();
+  
+  
   //formats the ghastly message/
   textAlign(CENTER, CENTER);
   textSize(15);
-  fill('white')
+  fill(255)
   textFont('Courier New');
   
   // Display a ghastly message./
@@ -112,7 +159,7 @@ function draw() {
   
   //the mouse/
   push();
-  fill('rgb(231,231,249)');
+  fill('creepyroom.r ,creepyroom.g,creepyroom.b)');
   triangle(x1,y1, x2,y2,x3,y3);
   pop(); 
 }
